@@ -1,319 +1,416 @@
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f2f3ec">
-  <meta name="description" content="寂寞 · 忘情水，常用入口。">
-  <title>寂寞 · 忘情水</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --paper: #f2f3ec;
-      --ink: #172421;
-      --muted: #697670;
-      --line: #dce1d8;
-      --accent: #bd553d;
-      --serif: "Noto Serif SC", "Songti SC", "STSong", serif;
-      --sans: "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>fdgdfgdgd</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        body {
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1.5rem, 5vw, 3rem);
+            position: relative;
+            /* 星空山水树高清背景（免费图库）*/
+            background: url('https://images.pexels.com/photos/1252869/pexels-photo-1252869.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+        }
 
-    body {
-      min-width: 320px;
-      min-height: 100vh;
-      margin: 0;
-      padding: 32px 20px 24px;
-      background-color: var(--paper);
-      background-image: repeating-linear-gradient(0deg, transparent 0 39px, rgb(23 36 33 / 3%) 40px);
-      color: var(--ink);
-      font-family: var(--sans);
-    }
+        /* 柔和遮罩，增强文字可读性但保持背景通透 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(1px);
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .page-shell {
-      width: min(100%, 760px);
-      margin: 0 auto;
-    }
+        /* 主内容容器 - 无背景、无边框，仅用于布局 */
+        .content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .masthead {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+        /* 标题 - 加大加高 */
+        .title {
+            font-size: clamp(2.2rem, 8vw, 3.5rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            letter-spacing: -0.5px;
+            transition: color 0.6s ease;
+            line-height: 1.2;
+        }
 
-    .masthead-mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+        /* 描述 - 加大加高 */
+        .desc {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            color: #ffffff;
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            font-weight: 500;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .masthead-mark::before {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      content: "";
-    }
+        /* 链接容器：垂直排列，居中对齐，间距增大 */
+        .links-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;   /* 按钮之间间距增大 */
+            margin-bottom: 2rem;
+        }
 
-    .cover {
-      position: relative;
-      display: flex;
-      min-height: 300px;
-      align-items: flex-end;
-      overflow: hidden;
-      background: #355a58;
-      color: #fff;
-    }
+        /* 按钮样式 - 加高加宽，视觉整齐，动态效果保留 */
+        .link-item {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+            background: rgba(10, 15, 30, 0.78);
+            backdrop-filter: blur(4px);
+            border-radius: 80px;        /* 更大圆角匹配加高 */
+            padding: 1rem 2.2rem;       /* 上下内边距增加，加高；左右内边距增加，加宽 */
+            text-decoration: none;
+            transition: background 0.6s ease, transform 0.25s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            width: 340px;               /* 基础宽度加宽 */
+            max-width: 85vw;            /* 小屏幕自适应 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            /* 脉冲动画 */
+            animation: subtlePulse 2s infinite ease-in-out;
+        }
 
-    .cover img,
-    .cover::after {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
+        /* 脉冲动画 - 适应更大按钮 */
+        @keyframes subtlePulse {
+            0% {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+            50% {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 6px rgba(255, 255, 255, 0.15);
+            }
+            100% {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
 
-    .cover img {
-      object-fit: cover;
-      object-position: center 54%;
-    }
+        /* 悬浮动画 */
+        @media (hover: hover) {
+            .link-item:hover {
+                transform: translateY(-6px) translateX(4px);
+                background: rgba(70, 120, 200, 0.92) !important;
+                border-color: rgba(255, 255, 255, 0.7);
+                box-shadow: 0 18px 32px rgba(0, 80, 200, 0.6), 0 0 0 3px rgba(255, 255, 255, 0.25);
+                animation: none;
+            }
+            .link-item:hover .link-arrow {
+                transform: translateX(10px);
+                color: white;
+            }
+        }
 
-    .cover::after {
-      background: linear-gradient(0deg, rgb(12 27 25 / 76%), rgb(12 27 25 / 4%) 82%);
-      content: "";
-    }
+        /* 光泽扫过效果 - 适应更大按钮 */
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                115deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.35) 50%,
+                transparent 70%
+            );
+            transform: rotate(25deg);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
 
-    .cover-content {
-      position: relative;
-      z-index: 1;
-      padding: 30px clamp(22px, 6vw, 48px) 34px;
-    }
+        .link-item:hover::before {
+            left: 100%;
+            transition: left 0.6s ease;
+        }
 
-    .cover-kicker {
-      margin: 0 0 12px;
-      color: #e5c4a4;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-    }
+        .link-item:active {
+            transform: scale(0.96);
+            transition: transform 0.08s;
+        }
 
-    h1 {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: 48px;
-      font-weight: 500;
-      line-height: 1.2;
-    }
+        .link-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    .cover-note {
-      margin: 12px 0 0;
-      color: rgb(255 255 255 / 82%);
-      font-size: 13px;
-    }
+        .link-icon {
+            font-size: 1.4rem;          /* 图标加大 */
+            opacity: 0.95;
+        }
 
-    .section-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 32px 0 14px;
-    }
+        .link-name {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1.1rem;          /* 文字加大 */
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
 
-    .section-heading h2 {
-      margin: 0;
-      font-family: var(--serif);
-      font-size: 20px;
-      font-weight: 500;
-    }
+        .link-arrow {
+            color: #e0f0ff;
+            font-size: 1.1rem;           /* 箭头加大 */
+            transition: transform 0.25s ease;
+            position: relative;
+            z-index: 1;
+        }
 
-    .section-heading span {
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-    }
+        .footer-note {
+            margin-top: 2.8rem;
+            font-size: 0.85rem;
+            color: #f0f5ff;
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            padding-top: 1.5rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
 
-    .links {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
+        /* ========= 响应式适配 ========= */
+        @media (max-width: 480px) {
+            .link-item {
+                width: 280px;            /* 小屏幕适当缩窄但仍比之前宽 */
+                padding: 0.85rem 1.5rem;
+            }
+            .link-name {
+                font-size: 1rem;
+                white-space: nowrap;
+            }
+            .link-icon {
+                font-size: 1.2rem;
+            }
+            .link-arrow {
+                font-size: 1rem;
+            }
+            .links-grid {
+                gap: 1.2rem;
+            }
+            .desc {
+                max-width: 100%;
+                margin-bottom: 2rem;
+            }
+            .footer-note {
+                margin-top: 2rem;
+                padding-top: 1.2rem;
+            }
+            /* 移动端简化光泽效果 */
+            .link-item::before {
+                display: none;
+            }
+        }
 
-    .link-item {
-      display: flex;
-      min-height: 74px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      background: rgb(255 255 255 / 62%);
-      color: var(--ink);
-      text-decoration: none;
-      transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
-    }
+        @media (min-width: 481px) and (max-width: 768px) {
+            .link-item {
+                width: 300px;
+                padding: 0.9rem 1.8rem;
+            }
+            .link-name {
+                font-size: 1.05rem;
+            }
+            .link-icon {
+                font-size: 1.3rem;
+            }
+        }
 
-    .link-item[aria-disabled="true"] {
-      color: #728078;
-      cursor: not-allowed;
-    }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .link-item {
+                width: 320px;
+                padding: 1rem 2rem;
+            }
+        }
 
-    .link-item:not([aria-disabled="true"]):hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-      background: #fff;
-    }
+        @media (min-width: 1025px) {
+            .link-item {
+                width: 360px;
+                padding: 1.1rem 2.4rem;
+            }
+            .link-name {
+                font-size: 1.2rem;
+            }
+            .link-icon {
+                font-size: 1.5rem;
+            }
+            .link-arrow {
+                font-size: 1.2rem;
+            }
+            .title {
+                font-size: 3.8rem;
+            }
+            .desc {
+                font-size: 1.5rem;
+            }
+        }
 
-    .link-name {
-      font-size: 15px;
-    }
+        @media (min-width: 1600px) {
+            .content {
+                max-width: 900px;
+            }
+            .link-item {
+                width: 400px;
+                padding: 1.2rem 2.6rem;
+            }
+        }
 
-    .link-state {
-      color: var(--muted);
-      font-size: 11px;
-    }
+        @media (orientation: landscape) and (max-height: 550px) {
+            body {
+                padding: 1rem;
+            }
+            .title {
+                margin-bottom: 0.5rem;
+            }
+            .desc {
+                margin-bottom: 1.2rem;
+            }
+            .links-grid {
+                gap: 1rem;
+            }
+            .footer-note {
+                margin-top: 1.2rem;
+                padding-top: 0.8rem;
+            }
+            .link-item {
+                padding: 0.7rem 1.8rem;
+                width: 300px;
+            }
+            .link-name {
+                font-size: 1rem;
+            }
+        }
 
-    .link-arrow {
-      color: var(--accent);
-      font-size: 18px;
-    }
-
-    .notice {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-top: 22px;
-      padding: 16px 18px;
-      border-left: 2px solid var(--accent);
-      background: rgb(255 255 255 / 48%);
-      color: #485650;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .notice-mark {
-      flex: 0 0 auto;
-      color: var(--accent);
-      font-family: var(--serif);
-      font-size: 17px;
-      line-height: 1.4;
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    a:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 520px) {
-      body {
-        padding: 20px 14px 18px;
-      }
-
-      .cover {
-        min-height: 260px;
-      }
-
-      h1 {
-        font-size: 34px;
-      }
-
-      .links {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
-      .link-item {
-        min-height: 64px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+        body, body::before {
+            background-attachment: fixed;
+        }
+    </style>
 </head>
 <body>
-  <main class="page-shell">
-    <div class="masthead" aria-label="页面分类">
-      <span class="masthead-mark">Personal links</span>
-      <span>NO. 01 — 04</span>
+
+    <div class="content">
+        <h1 class="title">8Acc.cc</h1>
+        <p class="desc">浏览器看不了更换其他浏览器</p>
+
+        <div class="links-grid">
+            <a href="http://kjrranxx.r.hzmyjd.cn/s/15G7aG" class="link-item" target="_blank" rel="noopener noreferrer">
+                <div class="link-info">
+                    <span class="link-icon">🌹</span>
+                    <span class="link-name">少妇寂寞</span>
+                </div>
+                <span class="link-arrow">🤟</span>
+            </a>
+
+            <a href="http://rk1.4u8.cn/rk1.html?u=bucket_6963c3bfb0d48" class="link-item" target="_blank" rel="noopener noreferrer">
+                <div class="link-info">
+                    <span class="link-icon">🌻</span>
+                    <span class="link-name">激烈战场</span>
+                </div>
+                <span class="link-arrow">🤟</span>
+            </a>
+
+            <a href="http://ngsd50.xmhy91.bdcdn.zjyxqb.cn/zz/aubr96?MuVq" class="link-item" target="_blank" rel="noopener noreferrer">
+                <div class="link-info">
+                    <span class="link-icon">🍁</span>
+                    <span class="link-name">人妖殊途</span>
+                </div>
+                <span class="link-arrow">🤟</span>
+            </a>
+
+            <a href="http://kjrranxx.r.hzmyjd.cn/s/15G7aG" class="link-item" target="_blank" rel="noopener noreferrer">
+                <div class="link-info">
+                    <span class="link-icon">🍁</span>
+                    <span class="link-name">人妻激情</span>
+                </div>
+                <span class="link-arrow">🤟</span>
+            </a>
+        </div>
+
+        <div class="footer-note">
+            点击进不去，可能网络问题，更换一下浏览器试试，全天更新
+        </div>
     </div>
 
-    <section class="cover" aria-labelledby="page-title">
-      <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&amp;fit=crop&amp;w=1600&amp;q=85" alt="海面波浪" fetchpriority="high">
-      <div class="cover-content">
-        <p class="cover-kicker">寂寞 · 忘情水</p>
-        <h1 id="page-title">留一个入口，<br>去往想去的地方。</h1>
-        <p class="cover-note">四个常用链接，安静收在这里。</p>
-      </div>
-    </section>
+    <script>
+        (function() {
+            // 按钮背景色方案
+            const buttonColors = [
+                'rgba(45, 55, 85, 0.78)',
+                'rgba(65, 45, 95, 0.78)',
+                'rgba(35, 70, 80, 0.78)',
+                'rgba(85, 45, 65, 0.78)',
+                'rgba(40, 60, 105, 0.78)',
+                'rgba(70, 50, 75, 0.78)',
+                'rgba(30, 80, 70, 0.78)'
+            ];
 
-    <section aria-labelledby="links-title">
-      <div class="section-heading">
-        <h2 id="links-title">常用入口</h2>
-        <span>QUICK LINKS</span>
-      </div>
-      <ol class="links">
-        <li><a class="https://survey.123u.com/file/e6280696a68bf1103ab38e68ad599c00/041d2c3c04c0418a8c94b9a3e1ea3197.html?ldk=15HUVYoh9yC2" data-link-index="0"href=""><span class="link-name">偷拍换妻</span><span class="link-state">点击进入</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-        <li><a class="link-item" data-link-index="1"href=""><span class="link-name">双飞少妇</span><span class="link-state">点击进入</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-        <li><a class="link-item" data-link-index="2"href=""><span class="link-name">情侣偷拍</span><span class="link-state">点击进入</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-        <li><a class="link-item" data-link-index="3"href=""><span class="link-name">激情乱伦</span><span class="link-state">点击进入</span><span class="link-arrow" aria-hidden="true">↗</span></a></li>
-      </ol>
-    </section>
+            // 主标题颜色方案
+            const titleColors = [
+                '#FFE6B3',
+                '#C5C6FF',
+                '#A0E7E5',
+                '#FFB7B2',
+                '#B5F0D1',
+                '#FADADD',
+                '#FFD966'
+            ];
 
-    <aside class="notice" aria-label="扫码提示">
-      <span class="notice-mark" aria-hidden="true">注</span>
-      <span>微信内扫码无法打开时，请使用手机浏览器重新扫码。</span>
-    </aside>
-
-    <footer>
-      <span>寂寞 · 忘情水</span>
-      <span>留一刻给自己</span>
-    </footer>
-  </main>
-
-  <script>
-    const destinations = ["", "", "", ""];
-
-    document.querySelectorAll("[data-link-index]").forEach((link) => {
-      const destination = destinations[Number(link.dataset.linkIndex)]?.trim();
-      if (!destination) return;
-
-      try {
-        const url = new URL(destination, window.location.href);
-        if (url.protocol !== "https:" && url.protocol !== "http:") return;
-
-        link.href = url.href;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.removeAttribute("aria-disabled");
-        link.removeAttribute("tabindex");
-        link.querySelector(".link-state").hidden = true;
-      } catch {
-        return;
-      }
-    });
-  </script>
+            const buttons = document.querySelectorAll('.link-item');
+            const titleElement = document.querySelector('.title');
+            
+            if (buttons.length === 0 || !titleElement) return;
+            
+            let colorIndex = 0;
+            
+            function updateColors() {
+                const newButtonColor = buttonColors[colorIndex % buttonColors.length];
+                buttons.forEach(btn => {
+                    btn.style.backgroundColor = newButtonColor;
+                });
+                
+                const newTitleColor = titleColors[colorIndex % titleColors.length];
+                titleElement.style.color = newTitleColor;
+                
+                colorIndex = (colorIndex + 1) % Math.max(buttonColors.length, titleColors.length);
+            }
+            
+            updateColors();
+            setInterval(updateColors, 3000);
+        })();
+    </script>
+    <!-- 背景：Pexels 免费图库，星空山水树木 -->
 </body>
 </html>
+
+ 
